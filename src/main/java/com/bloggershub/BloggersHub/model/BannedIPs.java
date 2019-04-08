@@ -1,10 +1,7 @@
 package com.bloggershub.BloggersHub.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name="bannedips")
 public class BannedIPs {
