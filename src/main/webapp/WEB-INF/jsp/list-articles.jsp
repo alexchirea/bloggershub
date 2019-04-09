@@ -36,17 +36,36 @@
                                 <c:url var="deleteLink" value="/articles/delete">
                                     <c:param name="articleId" value="${article.id}"/>
                                 </c:url>
+                                <c:url var="publishLink" value="/articles/publish">
+                                    <c:param name="articleId" value="${article.id}"/>
+                                </c:url>
+                                <c:url var="unpublishLink" value="/articles/unpublish">
+                                    <c:param name="articleId" value="${article.id}"/>
+                                </c:url>
 
                                 <tr>
-                                    <td>${article.title}</td>
+                                    <td>${article.title}
+                                        <c:if test="${empty article.published}">
+                                            <span class="badge badge-pill badge-secondary">Draft</span>
+                                        </c:if>
+                                        <c:if test="${not empty article.published}">
+                                            <span class="badge badge-pill badge-success">Published</span>
+                                        </c:if>
+                                    </td>
                                     <td>${article.description}</td>
                                     <td>${article.tags}</td>
                                     <td>${article.votes}</td>
                                     <td>${article.views}</td>
 
                                     <td>
-                                        <a href="${updateLink}">Update</a> | <a href="${deleteLink}"
-                                                                                onclick="if (!(confirm('Are you sure you want to delete this article?'))) return false">Delete</a>
+                                        <c:if test="${empty article.published}">
+                                            <a href="${publishLink}" class="btn btn-sm btn-success">Publish</a> |
+                                        </c:if>
+                                        <c:if test="${not empty article.published}">
+                                            <a href="${unpublishLink}" class="btn btn-sm btn-warning">Unpublish</a> |
+                                        </c:if>
+                                        <a href="${updateLink}" class="btn btn-sm btn-primary">Update</a> |
+                                        <a href="${deleteLink}"  class="btn btn-sm btn-danger" onclick="if (!(confirm('Are you sure you want to delete this article?'))) return false">Delete</a>
                                     </td>
 
                                 </tr>

@@ -35,5 +35,9 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findById(id);
     }
 
+    @Override
+    public List<Article> findAllPublished() {
+        return articleRepository.findByPublishedNotNull();
+    }
 
 }

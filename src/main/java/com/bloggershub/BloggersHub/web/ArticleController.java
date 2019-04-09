@@ -11,10 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -26,9 +25,6 @@ public class ArticleController {
 
     @Autowired
     private ArticleRepository articleRepository;
-
-    @Autowired
-    private ArticleValidator articleValidator;
 
     @Autowired
     private UserRepository userRepository;
@@ -80,6 +76,23 @@ public class ArticleController {
     @GetMapping("/delete")
     public String deleteArticle(@RequestParam("articleId") int id) {
         articleService.deleteArticle(id);
+        return "redirect:/articles/my";
+    }
+
+    @GetMapping("/publish")
+    public String publishArticle(@RequestParam("articleId") int id) {
+        Article article = articleRepository.findById(id);
+        java.sql.Date currentTimestamp = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        article.setPublished(currentTimestamp.toString());
+        articleService.save(article);
+        return "redirect:/articles/my";
+    }
+
+    @GetMapping("/unpublish")
+    public String unpublishArticle(@RequestParam("articleId") int id) {
+        Article article = articleRepository.findById(id);
+        article.setPublished(null);
+        articleService.save(article);
         return "redirect:/articles/my";
     }
 

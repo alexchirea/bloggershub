@@ -12,4 +12,6 @@ public interface ArticleService {
     void deleteArticle(int id);
 
     Article findById(int id);
+
+    List<Article> findAllPublished();
 }
