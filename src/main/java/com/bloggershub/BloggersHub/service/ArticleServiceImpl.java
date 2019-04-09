@@ -5,6 +5,7 @@ import com.bloggershub.BloggersHub.model.Article;
 import com.bloggershub.BloggersHub.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,13 +20,19 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article findById(Integer id) {
-        return articleRepository.findById(id);
+    public List<Article> findByAuthorId(Integer id) {
+        return articleRepository.findByAuthorId(id);
     }
 
     @Override
-    public List<Article> findByAuthorId(Integer id) {
-        return articleRepository.findByAuthorId(id);
+    @Transactional
+    public void deleteArticle(int id) {
+        articleRepository.deleteById(id);
+    }
+
+    @Override
+    public Article findById(int id) {
+        return articleRepository.findById(id);
     }
 
 

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-    Article findById(Integer id);
     List<Article> findByAuthorId(Integer id);
+    Article findById(int id);
+    void deleteById(int id);
 }

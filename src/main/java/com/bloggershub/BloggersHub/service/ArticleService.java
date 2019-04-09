@@ -7,7 +7,9 @@ import java.util.List;
 public interface ArticleService {
     void save(Article article);
 
-    Article findById(Integer id);
-
     List<Article> findByAuthorId(Integer id);
+
+    void deleteArticle(int id);
+
+    Article findById(int id);
 }

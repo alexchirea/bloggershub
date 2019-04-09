@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Create an account</title>
+    <title>BloggersHub :: Register</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/common.css" rel="stylesheet">

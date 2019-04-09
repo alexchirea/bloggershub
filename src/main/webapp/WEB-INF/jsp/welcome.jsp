@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Create an account</title>
+    <title>BloggersHub :: Welcome</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/common.css" rel="stylesheet">
 
@@ -18,6 +18,8 @@
         </form>
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+
+        <h4><a href="/articles/my" class="btn btn-success">My articles</a></h4>
     </c:if>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

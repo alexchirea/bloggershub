@@ -13,13 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/articles")
 public class ArticleController {
 
     @Autowired
@@ -34,43 +33,54 @@ public class ArticleController {
     @Autowired
     private UserRepository userRepository;
 
-
-    @GetMapping("/newarticle")
-    public String newarticle(Model model) {
-        model.addAttribute("articleForm", new Article());
-        return "newarticle";
-    }
-
-    @PostMapping("/newarticle")
-    public String newarticle(@ModelAttribute("articleForm") Article articleForm, BindingResult bindingResult) {
-        articleValidator.validate(articleForm, bindingResult);
-
-
+    @GetMapping(value={"/my", "/", ""})
+    public String myArticles(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = ((UserDetails)principal).getUsername();
         User user = userRepository.findByUsername(username);
+        List<Article> articles = articleRepository.findByAuthorId(user.getId());
+        model.addAttribute("articles", articles);
+        return "list-articles";
+    }
 
-        articleForm.setAuthorId(user.getId());
-        articleForm.setViews(0);
-        articleForm.setVotes(0);
 
-        if (bindingResult.hasErrors()) {
-            return "newarticle";
+    @GetMapping("/new")
+    public String newArticleForm(Model model) {
+        model.addAttribute("article", new Article());
+        return "article-form";
+    }
+
+    @PostMapping("/save")
+    public String saveArticle(@ModelAttribute("article") Article article) {
+        if (article.getId() == 0) {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username = ((UserDetails)principal).getUsername();
+            User user = userRepository.findByUsername(username);
+            article.setAuthorId(user.getId());
+            article.setVotes(0);
+            article.setViews(0);
         }
-
-        articleService.save(articleForm);
-
-        return "redirect:/dashboard";
+        else {
+            Article copy = articleRepository.findById(article.getId());
+            article.setAuthorId(copy.getAuthorId());
+            article.setVotes(copy.getVotes());
+            article.setViews(copy.getViews());
+        }
+        articleService.save(article);
+        return "redirect:/articles/my";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(ModelMap model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails)principal).getUsername();
-        User user = userRepository.findByUsername(username);
-        List<Article> articleList = articleRepository.findByAuthorId(user.getId());
-        model.put("articleList", articleList);
-        return "dashboard";
+    @GetMapping("/update")
+    public String updateArticleForm(@RequestParam("articleId") int id, Model model) {
+        Article article = articleService.findById(id);
+        model.addAttribute("article", article);
+        return "article-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteArticle(@RequestParam("articleId") int id) {
+        articleService.deleteArticle(id);
+        return "redirect:/articles/my";
     }
 
 }
