@@ -14,7 +14,7 @@
                             <c:param name="articleId" value="${article.id}"/>
                         </c:url>
 
-                        <div class="card">
+                        <div class="card mt-4">
                             <h5 class="card-header">${article.title}</h5>
                             <div class="card-body">
                                 <h5 class="card-title">${article.description}</h5>

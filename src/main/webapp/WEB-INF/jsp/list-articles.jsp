@@ -11,7 +11,7 @@
                 <hr/>
 
                 <input type="button" value="Add Article"
-                       onclick="window.location.href='new'; return false;"
+                       onclick="window.location.href='articles/new'; return false;"
                        class="btn btn-primary"/>
                 <br/><br/>
                 <div class="panel panel-info">

@@ -18,7 +18,7 @@ public class HomeController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping(value={"/", ""})
+    @GetMapping(value={"/", "", "/home"})
     public String home(ModelMap model) {
         List<Article> articles = articleService.findAllPublished();
         model.addAttribute("articles", articles);
