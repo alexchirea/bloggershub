@@ -37,6 +37,7 @@
                 </c:if>
                 <c:if test="${pageContext.request.userPrincipal.name == null}">
                     <a href="/login" class="btn btn-success ml-3">Login</a>
+                    <a href="/registration" class="btn btn-warning ml-3">Register</a>
                 </c:if>
             </form>
         </div>
