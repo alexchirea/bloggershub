@@ -20,6 +20,8 @@ public class User {
 
     private String lastName;
 
+    private Integer isBanned = 0;
+
     @Transient
     private String passwordConfirm;
 
@@ -88,5 +90,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Integer getIsBanned() {
+        return isBanned;
+    }
+
+    public void setIsBanned(Integer isBanned) {
+        this.isBanned = isBanned;
     }
 }
