@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -28,6 +29,9 @@ public class ArticleController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ArticleValidator articleValidator;
 
     @GetMapping(value={"/my", "/", ""})
     public String myArticles(Model model) {
@@ -47,7 +51,13 @@ public class ArticleController {
     }
 
     @PostMapping("/save")
-    public String saveArticle(@ModelAttribute("article") Article article) {
+    public String saveArticle(@ModelAttribute("article") Article article, BindingResult bindingResult) {
+        articleValidator.validate(article, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "article-form";
+        }
+
         if (article.getId() == 0) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String username = ((UserDetails)principal).getUsername();

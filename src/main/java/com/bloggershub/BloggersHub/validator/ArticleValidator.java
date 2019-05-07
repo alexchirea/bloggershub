@@ -26,5 +26,15 @@ public class ArticleValidator implements Validator {
         if (article.getContent().length() < 1) {
             errors.rejectValue("content", "Size.articleForm.content");
         }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
+        if (article.getContent().length() < 1) {
+            errors.rejectValue("title", "Size.articleForm.title");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "NotEmpty");
+        if (article.getContent().length() < 1) {
+            errors.rejectValue("description", "Size.articleForm.description");
+        }
     }
 }
