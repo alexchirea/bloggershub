@@ -22,7 +22,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="${homeUrl}">Home</a>
                 </li>
@@ -31,6 +31,14 @@
                     <a class="nav-link" href="${articlesUrl}">Articles</a>
                 </li>
             </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <c:if test="${pageContext.request.userPrincipal.name != null}">
+                    <a href="/logout" class="btn btn-primary ml-3">Logout</a>
+                </c:if>
+                <c:if test="${pageContext.request.userPrincipal.name == null}">
+                    <a href="/login" class="btn btn-success ml-3">Login</a>
+                </c:if>
+            </form>
         </div>
     </nav>
     <div id="body">
