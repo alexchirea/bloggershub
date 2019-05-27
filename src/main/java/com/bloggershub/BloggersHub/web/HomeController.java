@@ -31,6 +31,8 @@ public class HomeController {
     public String viewArticle(@RequestParam("articleId") int id, Model model) {
         Article article = articleService.findById(id);
         model.addAttribute("article", article);
+        article.setViews(article.getViews() + 1);
+        articleService.save(article);
         return "view-article";
     }
 
