@@ -4,6 +4,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +33,10 @@
                     <c:url value="/articles" var="articlesUrl" />
                     <a class="nav-link" href="${articlesUrl}">Articles</a>
                 </li>
+                <sec:authorize access="hasRole('ADMIN')">
+                    <c:url value="/admin/users" var="adminUsers" />
+                    <li class="nav-item"><a class="nav-link" href="${adminUsers}">Users</a></li>
+                </sec:authorize>
             </ul>
             <form class="form-inline mt-2 mt-md-0">
                 <c:if test="${pageContext.request.userPrincipal.name != null}">

@@ -76,6 +76,22 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/users/ban")
+    public String banUser(@RequestParam("id") Integer id) {
+        User user = userService.findById(id);
+        user.setIsBanned(1);
+        userService.save(user);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/users/unban")
+    public String unbanUser(@RequestParam("id") Integer id) {
+        User user = userService.findById(id);
+        user.setIsBanned(0);
+        userService.save(user);
+        return "redirect:/admin/users";
+    }
+
     @GetMapping({"/welcome"})
     public String welcome(Model model) {
         return "welcome";

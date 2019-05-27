@@ -39,20 +39,4 @@ public class AdminUserController {
         return "admin/users/list";
     }
 
-    @GetMapping("/ban")
-    public String ban(@RequestParam("userId") int id) {
-        User user = userRepository.findById(id);
-        user.setIsBanned(1);
-        userService.save(user);
-        return "redirect:/admin/users/list";
-    }
-
-    @GetMapping("/unban")
-    public String unban(@RequestParam("userId") int id) {
-        User user = userRepository.findById(id);
-        user.setIsBanned(0);
-        userService.save(user);
-        return "redirect:/admin/users/list";
-    }
-
 }
