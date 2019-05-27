@@ -10,7 +10,7 @@
             <div class="col-md-offset-1 col-md-10">
                     <c:forEach var="article" items="${articles}">
 
-                        <c:url var="viewLink" value="/home/article/view">
+                        <c:url var="viewLink" value="/article">
                             <c:param name="articleId" value="${article.id}"/>
                         </c:url>
 
