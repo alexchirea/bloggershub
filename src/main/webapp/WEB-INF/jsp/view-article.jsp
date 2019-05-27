@@ -17,6 +17,30 @@
                         <p><a href="dislike?articleId=${article.id}" class="btn btn-warning"> <i class="fas fa-thumbs-down"></i>Like</a> </p>
                     </div>
                 </div>
+                <div class="panel-body">
+                    <c:if test="${pageContext.request.userPrincipal.name != null}">
+                        <h2>Adauga comentariu</h2>
+                        <form:form action="${pageContext.request.contextPath}/comments/save"  cssClass="form-horizontal"
+                                   method="post" modelAttribute="comment">
+                            <input type="hidden" id="articleId" name="articleId" value="${article.id}">
+                            <div class="form-group">
+                                <label for="message" class="col-md-3 control-label">Message</label>
+                                <div class="col-md-9">
+                                    <form:textarea path="message" cssClass="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <form:button cssClass="btn btn-primary">Submit</form:button>
+                                </div>
+                            </div>
+                        </form:form>
+                    </c:if>
+                    <h2>Comentarii</h2>
+                    <c:forEach var="comentariu" items="${comments}">
+                        <p>${comentariu.message} -- ${comentariu.username}</p>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </jsp:body>

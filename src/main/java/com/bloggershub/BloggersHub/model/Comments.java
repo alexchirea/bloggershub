@@ -25,12 +25,12 @@ public class Comments {
         this.username = username;
     }
 
-    public Integer getArticle_id() {
-        return article_id;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setArticle_id(Integer article_id) {
-        this.article_id = article_id;
+    public void setArticleId(Integer article_id) {
+        this.articleId = article_id;
     }
 
     public String getMessage() {
@@ -58,7 +58,7 @@ public class Comments {
     }
 
     private String username;
-    private Integer article_id;
+    private Integer articleId;
     private String message;
     private String ip;
     private String approved;
