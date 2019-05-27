@@ -36,4 +36,20 @@ public class HomeController {
         return "view-article";
     }
 
+    @GetMapping("/like")
+    public String likeArticle(@RequestParam("articleId") int id, Model model) {
+        Article article = articleService.findById(id);
+        article.setVotes(article.getVotes()+1);
+        articleService.save(article);
+        return "redirect:/article?articleId=" + id;
+    }
+
+    @GetMapping("/dislike")
+    public String dislikeArticle(@RequestParam("articleId") int id, Model model) {
+        Article article = articleService.findById(id);
+        article.setVotes(article.getVotes()-1);
+        articleService.save(article);
+        return "redirect:/article?articleId=" + id;
+    }
+
 }

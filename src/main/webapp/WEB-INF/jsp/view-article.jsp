@@ -13,6 +13,8 @@
                         <h1>${article.title}</h1>
                         <h2>${article.description}</h2>
                         <p>${article.content}</p>
+                        <p><a href="like?articleId=${article.id}" class="btn btn-success"> <i class="fas fa-thumbs-up"></i>Like</a> </p>
+                        <p><a href="dislike?articleId=${article.id}" class="btn btn-warning"> <i class="fas fa-thumbs-down"></i>Like</a> </p>
                     </div>
                 </div>
             </div>
